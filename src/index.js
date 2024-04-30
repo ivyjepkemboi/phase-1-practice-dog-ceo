@@ -20,3 +20,36 @@ document.addEventListener("DOMContentLoaded", function() {
         .catch(error => console.log(error));
     }
 );
+// Challenge 2: Fetch and display dog breeds
+fetch(breedUrl)
+.then(response => response.json())
+.then(data => {
+    const breeds = Object.keys(data.message);
+    breeds.forEach(breed => {
+        const breedItem = document.createElement("li");
+        breedItem.textContent = breed;
+        breedList.appendChild(breedItem);
+    });
+})
+.catch(error => console.log(error));
+
+// Challenge 3: Change font color on click
+breedList.addEventListener("click", function(event) {
+if (event.target.tagName === "LI") {
+    event.target.style.color = "blue"; // Change color to your preference
+}
+});
+
+// Challenge 4: Filter breeds by starting letter
+breedFilter.addEventListener("change", function(event) {
+const selectedLetter = event.target.value;
+const breedItems = breedList.getElementsByTagName("li");
+
+Array.from(breedItems).forEach(item => {
+    if (item.textContent.startsWith(selectedLetter)) {
+        item.style.display = "list-item";
+    } else {
+        item.style.display = "none";
+    }
+});
+});
